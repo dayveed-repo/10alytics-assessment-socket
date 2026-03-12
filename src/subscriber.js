@@ -2,7 +2,11 @@ const { createClient } = require("redis");
 
 async function initRedisSubscriber(io) {
   const subscriber = createClient({
-    url: process.env.REDIS_URL,
+    url: process.env.REDIS_URL || "redis://127.0.0.1:6379",
+  });
+
+  subscriber.on("error", (err) => {
+    console.error("Redis Subscriber Error:", err);
   });
 
   await subscriber.connect();
