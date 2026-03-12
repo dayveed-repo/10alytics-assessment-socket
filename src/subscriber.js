@@ -18,7 +18,7 @@ async function initRedisSubscriber(io) {
 
     console.log("Notification received:", data);
 
-    io.to(`user:${data.userId}`).emit("notification", data);
+    io.emit("notification", data);
   });
 }
 
